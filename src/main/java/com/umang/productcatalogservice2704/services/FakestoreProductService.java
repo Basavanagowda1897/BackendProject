@@ -1,8 +1,11 @@
 package com.umang.productcatalogservice2704.services;
 
 import com.umang.productcatalogservice2704.dtos.FakestoreProductDto;
+import com.umang.productcatalogservice2704.exceptions.ProductNotExistException;
 import com.umang.productcatalogservice2704.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -40,9 +43,9 @@ public class FakestoreProductService implements IProductService{
     }
 
     @Override
-    public Product getProductById(Long id) {
+    public Product getProductById(Long id) throws ProductNotExistException {
 
-        FakestoreProductDto fakestoreProductDto = restTemplate.getForObject(
+        ResponseEntity<FakestoreProductDto> fakestoreProductDto = restTemplate.getForEntity(
                 "https://fakestoreapi.com/products/{id}",
                 FakestoreProductDto.class,
                 id
@@ -51,7 +54,15 @@ public class FakestoreProductService implements IProductService{
         Convert the fakestoreProductDto to Product and return
         Map fakestoreProductDto to Product
          */
-        return fakestoreProductDto.toProduct();
+        if(fakestoreProductDto.getStatusCode().equals(HttpStatusCode.valueOf(200))){
+            if(fakestoreProductDto.getBody() != null){
+                return fakestoreProductDto.getBody().toProduct();
+            }else{
+                throw new ProductNotExistException("Product with id " + id + " does not exist");
+            }
+        }else{
+            throw new ProductNotExistException("Product with id " + id + " does not exist");
+        }
     }
 
     @Override
@@ -59,3 +70,9 @@ public class FakestoreProductService implements IProductService{
         return null;
     }
 }
+/*
+Compile and runtime
+
+Compile time exceptions are inherited from Exceptions class
+Runtime exceptions are inherited from RuntimeException class
+ */

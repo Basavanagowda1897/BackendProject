@@ -2,9 +2,11 @@ package com.umang.productcatalogservice2704.controllers;
 
 
 import com.umang.productcatalogservice2704.dtos.ProductDTO;
+import com.umang.productcatalogservice2704.exceptions.ProductNotExistException;
 import com.umang.productcatalogservice2704.models.Product;
 import com.umang.productcatalogservice2704.services.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,9 +30,17 @@ public class ProductController {
 
 
     @GetMapping("/products/{id}")
-    public ProductDTO getProductById(@PathVariable("id") Long id){
-        Product product = productService.getProductById(id);
-        return product.toProductDto();
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable("id") Long id){
+        try{
+            Product product = productService.getProductById(id);
+            return ResponseEntity.ok(product.toProductDto());
+        }catch (ProductNotExistException e){
+            //log the exception
+            //return a custom error response to the client
+            return ResponseEntity.status(404).body(null);
+        }
+
+
     }
 
     @PostMapping("/products")

@@ -1,12 +1,13 @@
 package com.umang.productcatalogservice2704.services;
 
+import com.umang.productcatalogservice2704.exceptions.ProductNotExistException;
 import com.umang.productcatalogservice2704.models.Product;
 
 import java.util.List;
 
 public interface IProductService {
     List<Product> getAllProducts();
-    Product getProductById(Long id);
+    Product getProductById(Long id) throws ProductNotExistException;
     Product createProduct(Product product);
 }
 
