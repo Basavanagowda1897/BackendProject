@@ -1,0 +1,70 @@
+package com.umang.productcatalogservice2704.models;
+
+import com.umang.productcatalogservice2704.dtos.CategoryDTO;
+import com.umang.productcatalogservice2704.dtos.ProductDTO;
+
+public class Product extends BaseModel{
+    private String name;
+    private String description;
+    private Double price;
+    private String imageUrl;
+    private Category category;
+
+    public ProductDTO toProductDto(){
+        /*
+        This method is used to convert the Product object to a ProductDTO object.
+         */
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setName(this.name);
+        productDTO.setDescription(this.description);
+        productDTO.setPrice(this.price);
+        productDTO.setImageUrl(this.imageUrl);
+
+        CategoryDTO categoryDTO = new CategoryDTO();
+        categoryDTO.setName(this.category.getName());
+        categoryDTO.setDescription(this.category.getDescription());
+        productDTO.setCategoryDTO(categoryDTO);
+
+        return productDTO;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+}
