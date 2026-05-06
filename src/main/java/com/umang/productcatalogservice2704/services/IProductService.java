@@ -9,6 +9,8 @@ public interface IProductService {
     List<Product> getAllProducts();
     Product getProductById(Long id) throws ProductNotExistException;
     Product createProduct(Product product);
+
+    Product replaceProduct(Product newProduct, Long id);
 }
 
 

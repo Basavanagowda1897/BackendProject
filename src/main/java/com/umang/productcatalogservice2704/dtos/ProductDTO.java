@@ -1,5 +1,8 @@
 package com.umang.productcatalogservice2704.dtos;
 
+import com.umang.productcatalogservice2704.models.Category;
+import com.umang.productcatalogservice2704.models.Product;
+
 public class ProductDTO {
     /*
     represents the data that we want to send to the client or receive from the client.
@@ -11,6 +14,27 @@ public class ProductDTO {
     private Double price;
     private String imageUrl;
     private CategoryDTO categoryDTO;
+
+    public Product toProduct(){
+        /*
+        This method is used to convert the ProductDTO object to a Product object.
+         */
+        Product product = new Product();
+        product.setName(this.name);
+        product.setDescription(this.description);
+        product.setPrice(this.price);
+        product.setImageUrl(this.imageUrl);
+
+        CategoryDTO categoryDTO = this.categoryDTO;
+        if(categoryDTO != null){
+            Category category = new Category();
+            category.setName(categoryDTO.getName());
+            category.setDescription(categoryDTO.getDescription());
+            product.setCategory(category);
+        }
+
+        return product;
+    }
 
     public String getName() {
         return name;
