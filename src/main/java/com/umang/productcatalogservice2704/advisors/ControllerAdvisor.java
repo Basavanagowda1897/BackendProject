@@ -5,10 +5,25 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+/*
+throwing ProductNotExist exception from 100 places in the code
+try{
+throw new ProductNotExistException("Product with id " + id + " does not exist");
+}catch(){
+    handle
+}
 
+
+
+ */
 @RestControllerAdvice
 public class ControllerAdvisor {
+
+    /*
+    random methods
+     */
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
@@ -29,3 +44,11 @@ public class ControllerAdvisor {
     }
 
 }
+
+/*
+Diff between monorepo and microservice
+
+10 services
+
+Deployment strategy
+ */

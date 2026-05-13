@@ -11,6 +11,8 @@ public interface IProductService {
     Product createProduct(Product product);
 
     Product replaceProduct(Product newProduct, Long id);
+
+    Boolean deleteProductById(Long id) ;
 }
 
 

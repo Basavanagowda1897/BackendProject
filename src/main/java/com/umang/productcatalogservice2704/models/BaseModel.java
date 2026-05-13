@@ -1,6 +1,13 @@
 package com.umang.productcatalogservice2704.models;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public abstract class BaseModel {
+    @Id
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
     private Long createdAt;
     private Long lastUpdatedAt;
@@ -64,4 +71,10 @@ epoch
 
 Soft Delete -
 Delete a product.
+
+
+Today's agenda items
+1. Complete implementation for your models and integrate SQL DB
+2. Implement our own product service (StorageProductService)
+3. JPA Queries and Query methods
  */

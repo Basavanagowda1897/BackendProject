@@ -18,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service("fakestore")
 public class FakestoreProductService implements IProductService {
 
 //    public <T> ResponseEntity<T> putForEntity(String url, @Nullable Object request, Class<T> responseType, Object... uriVariables) throws RestClientException {
@@ -137,6 +137,11 @@ public class FakestoreProductService implements IProductService {
             return response.getBody().toProduct();
         }
 
+        return null;
+    }
+
+    @Override
+    public Boolean deleteProductById(Long id) {
         return null;
     }
 }

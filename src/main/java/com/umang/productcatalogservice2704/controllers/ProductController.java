@@ -6,6 +6,7 @@ import com.umang.productcatalogservice2704.exceptions.ProductNotExistException;
 import com.umang.productcatalogservice2704.models.Product;
 import com.umang.productcatalogservice2704.services.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,7 @@ public class ProductController {
      */
 
     @Autowired
+    @Qualifier("storageProductService")
     private IProductService productService;
 
 
@@ -45,8 +47,10 @@ public class ProductController {
     }
 
     @PostMapping("/products")
-    public ProductDTO createProduct(@RequestBody ProductDTO product){
-        return null;
+    public ProductDTO createProduct(@RequestBody ProductDTO productDto){
+        Product product = productDto.toProduct();
+
+        return productService.createProduct(product).toProductDto();
     }
     /*
     "name":
