@@ -1,5 +1,6 @@
 package com.umang.productcatalogservice2704.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.umang.productcatalogservice2704.dtos.CategoryDTO;
 import com.umang.productcatalogservice2704.dtos.FakestoreProductDto;
 import com.umang.productcatalogservice2704.dtos.ProductDTO;
@@ -14,6 +15,7 @@ public class Product extends BaseModel{
     private Double price;
     private String imageUrl;
     @ManyToOne(cascade = CascadeType.PERSIST)
+    @JsonManagedReference
     private Category category;
     /*
     While creating a new product
